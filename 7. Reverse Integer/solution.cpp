@@ -1,29 +1,29 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-
-
-//input ex 1: 123
-//output: 321
-
-//input ex 2: -123
-//output: -321
-
-//Disregard trailing zeros in input
-//input ex 3: 120
-//output: 21
 class Solution {
-    public: 
-    long int INT_MAX = std::pow(2, 31);
-    long int INT_MIN = -std::pow(2,31) -1;
+public:
+    int reverse(int x) {
+        int isNegative = x > 0 ? 1: -1;
+        int rev = 0;
+        //Basic check
     
-    int reverse(int x){
+
+        if(x == 0){
+            return 0;
+        }
+
+        while(x != 0){
+            //Retrieve last digit
+             int digit = (x % 10); 
+             x = floor(x/10);
+             
+             //Error bound positive check
+             //First checks if next multiple of 10 would go out of bounds if positive 
+             if(rev > INT_MAX / 10 || (rev == INT_MAX/10 && digit > 7)) //Digit is for edge cases 
+                return 0;
+            //next multiple of 10 would go out of bounds if positive
+            if (rev < INT_MIN / 10 || (rev == INT_MIN / 10 && digit > 8)) 
+                return 0;
+             rev = (rev*10) + digit; 
+        }
+        return rev;
     }
 };
-
-int main(int argc,  char *argv[]){
-    Solution sol; 
-    sol.reverse(std::stoi(argv[1]));
-
-    return 0;
-}
